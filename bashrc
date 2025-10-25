@@ -133,10 +133,12 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+# zoxide
+eval "$(zoxide init bash)"
 
 # ---- CUSTOM - COMMANDS ----
-if [ -f ~/.bash_functions/custom.sh ]; then
-    source ~/.bash_functions/custom.sh
+if [ -f ~/sh-enanigans/bash_functions/custom.sh ]; then
+    source ~/sh-enanigans/bash_functions/custom.sh
 fi
 
 # ptron bluetooth
@@ -146,3 +148,11 @@ alias pullbt="pullbt"
 
 # host files
 alias hostdir="hostdir"
+
+# DNS fallback
+alias usepihole="use_pihole"
+alias useauto="use_default"
+alias dnsstatus="show_status"
+
+# tmux
+alias tt="tmux"

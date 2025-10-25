@@ -37,3 +37,38 @@ hostdir() {
 
     python3 -m http.server "$port" --directory "$dir"
 }
+
+
+# DNS fall-backs helpers
+use_pihole(){
+    CON_NAME="Airtel_Ravi Kumar"
+    PIHOLE_DNS="192.168.1.8"
+
+    echo "[+] Switching to Pi-hole DNS ($PIHOLE_DNS)..."
+    nmcli con mod "$CON_NAME" ipv4.dns "$PIHOLE_DNS"
+    nmcli con mod "$CON_NAME" ipv4.ignore-auto-dns yes
+    sleep 1
+    nmcli con down "$CON_NAME"
+    sleep 1
+    nmcli con up "$CON_NAME"
+    echo "[+] Done. Now using Pi-hole."
+}
+
+use_default() {
+    CON_NAME="Airtel_Ravi Kumar"
+    PIHOLE_DNS="192.168.1.8"
+    
+    echo "[+] Reverting to automatic/default DNS..."
+    nmcli con mod "$CON_NAME" ipv4.ignore-auto-dns no
+    nmcli con mod "$CON_NAME" ipv4.dns ""
+    sleep 1
+    nmcli con down "$CON_NAME"
+    sleep 1
+    nmcli con up "$CON_NAME"
+    echo "[+] Done. Back to default."
+}
+
+show_status() {
+    echo "[i] Current DNS:"
+    nmcli dev show | grep DNS
+}
