@@ -16,8 +16,8 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=100
+HISTFILESIZE=200
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -119,19 +119,15 @@ fi
 . "$HOME/.local/bin/env"
 
 # >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/happyuser/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/happyuser/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/happyuser/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/happyuser/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
+# Lazy-load conda
+conda() {
+    unset -f conda
+    . "/home/happyuser/miniconda3/etc/profile.d/conda.sh"
+    conda "$@"
+}
 # <<< conda initialize <<<
+# spicetify
+export PATH=$PATH:/home/happyuser/.spicetify
 
 # zoxide
 eval "$(zoxide init bash)"
@@ -156,3 +152,21 @@ alias dnsstatus="show_status"
 
 # tmux
 alias tt="tmux"
+alias xx="exit"
+
+# redshift
+alias redon='redshift -O 4500 2>/dev/null'
+alias redoff='redshift -x 2>/dev/null'
+
+
+# color switch
+USER_COLOR="\[\033[38;2;235;111;146m\]"   # Love
+AT_COLOR="\[\033[38;2;62;143;176m\]"      # Foilage
+HOST_COLOR="$USER_COLOR"                  # Same as username
+DIR_COLOR="\[\033[38;2;196;167;231m\]"    # Iris
+PROMPT_CHAR="\[\033[38;2;246;193;119m\]"  # Gold
+RESET_COLOR="\[\033[0m\]"
+
+export PS1="${USER_COLOR}\u${AT_COLOR}@${HOST_COLOR}\h${RESET_COLOR}:${DIR_COLOR}\w${RESET_COLOR}${PROMPT_CHAR}\$${RESET_COLOR} "
+
+eval "$(dircolors ~/.dircolors)"

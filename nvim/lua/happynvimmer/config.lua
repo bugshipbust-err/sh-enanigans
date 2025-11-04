@@ -22,8 +22,16 @@ vim.opt.hlsearch = false                -- search hilighting
 vim.opt.background = "dark"
 
 
--- FILE MANAGEMENT --
+-- Disable automatic comment continuation
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "*",
+  callback = function()
+    vim.opt.formatoptions:remove({ "c", "r", "o" })
+  end,
+})
 
+
+-- FILE MANAGEMENT --
 vim.opt.autoread = true
 vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
   pattern = "*",
