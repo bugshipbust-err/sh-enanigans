@@ -3,6 +3,11 @@ local utils = require("telescope.utils")
 
 
 -- searching at different depths
+vim.keymap.set('n', '<leader>f0', function()
+    local parent_dir = vim.fn.fnamemodify(utils.buffer_dir(), ":h")
+    builtin.find_files({ cwd = parent_dir })
+end, { desc = "Telescope: find files in current working directory" })
+
 vim.keymap.set('n', '<leader>f1', function()
     local parent_dir = vim.fn.fnamemodify(utils.buffer_dir(), ":h:h")
     builtin.find_files({ cwd = parent_dir })

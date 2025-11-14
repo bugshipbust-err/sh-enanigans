@@ -11,15 +11,6 @@ return require('packer').startup(function(use)
 	  requires = { {'nvim-lua/plenary.nvim'} }
   }
 
-  -- lua/plugins/rose-pine.lua
-  use({
-	  "rose-pine/neovim",
-	  name = "rose-pine",
-	  config = function()
-		  vim.cmd("colorscheme rose-pine")
-	  end
-  })
-
   -- tree-sitter
   use {
 	  "nvim-treesitter/nvim-treesitter",
@@ -28,5 +19,6 @@ return require('packer').startup(function(use)
   use {
 	  "nvim-treesitter/playground"
   }
+  use { "ellisonleao/gruvbox.nvim" }
 end)
 

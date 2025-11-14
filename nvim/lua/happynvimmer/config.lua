@@ -40,10 +40,10 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
 
 
 -- TERMINAL --
-
 local function open_iterm()
   vim.cmd("botright terminal")
   vim.cmd("resize 15")
 end
 
 vim.api.nvim_create_user_command("Iterm", open_iterm, {})
+
